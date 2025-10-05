@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 #include <cstdlib>
@@ -22,12 +23,29 @@ class Movie{
         Review * reviewList;
 
     public:
-        void display(); // maybe add params later
-        // possible method for getting info, might be done in main
+        Movie(string t, Review * listHead);
+        void display();
 };
 
+// Constructor
+Movie::Movie(string t, Review * listHead){
+    title = t;
+    reviewList = listHead;
+}
+
+// Displays movie title, all reviews, average rating
+void Movie::display(){
+    cout << title << endl;
+    cout << "---" << endl;
+    displayAll(reviewList);
+}
+
+// create vector, get data from input file, use class and struct methods to display info
 int main(){
-    // create vector, get data from input file, use class and struct methods to display info
+    vector<Movie> movieList;
+    ifstream input;
+    input.open("reviews.txt");
+    // check if good, then populate linked list in loop
 }
 
 // Copied from Lab 18
