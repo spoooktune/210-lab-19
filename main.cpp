@@ -6,6 +6,8 @@
 
 using namespace std;
 
+const int NUM_REVIEWS = 3;
+
 // struct copied from Lab 18
 struct Review{
     double rating;
@@ -45,7 +47,28 @@ int main(){
     vector<Movie> movieList;
     ifstream input;
     input.open("reviews.txt");
-    // check if good, then populate linked list in loop
+    if (input.good()){
+        string t, c;
+        double r;
+        while (getline(input, t)){
+            Review * head = nullptr;
+            for (int i = 0; i < NUM_REVIEWS; i++){
+                r = (rand() % 5) + 1.0 ;
+                getline(input, c);
+                head = addFront(head, r, c);
+            }
+            Movie temp = Movie(t, head);
+            movieList.push_back(temp);
+        }
+    }
+    else{
+        cout << "Error opening file";
+    }
+    cout << "Displaying all movies and reviews" << endl;
+    for (int i = 0; i < movieList.size(); i++){
+        movieList[i].display();
+        cout << endl;
+    }
 }
 
 // Copied from Lab 18
