@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <iomanip>
 #include <string>
 #include <vector>
 #include <cstdlib>
@@ -50,10 +51,11 @@ int main(){
     if (input.good()){
         string t, c;
         double r;
+        const double MIN = 1.0, MAX = 5.0;
         while (getline(input, t)){
             Review * head = nullptr;
             for (int i = 0; i < NUM_REVIEWS; i++){
-                r = (rand() % 5) + 1.0 ;
+                r = MIN + (static_cast<double>(rand()) / static_cast<double>(RAND_MAX)) * (MAX-MIN);
                 getline(input, c);
                 head = addFront(head, r, c);
             }
@@ -64,7 +66,7 @@ int main(){
     else{
         cout << "Error opening file";
     }
-    cout << "Displaying all movies and reviews" << endl;
+    cout << "Displaying all movies and reviews\n" << endl;
     for (int i = 0; i < movieList.size(); i++){
         movieList[i].display();
         cout << endl;
@@ -96,7 +98,7 @@ void displayAll(Review * head){
     double average = 0;
     int i = 0;
     while(current){
-        cout << "> Review " << i + 1 << ": " << current->rating << ", " << current->comment << endl;
+        cout << "> Review " << i + 1 << ": " << setprecision(2) << current->rating << ", " << current->comment << endl;
         average += current->rating;
         current = current->next;
         i++;
